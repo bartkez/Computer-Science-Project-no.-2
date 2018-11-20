@@ -7,11 +7,11 @@
 
 struct image
 {
-	char standard[3];
-	int width;
-	int height;
-	int maxGrey;
-	int pixArray[7][17];
+	char ca_standard[3];
+	int i_width;
+	int i_height;
+	int i_maxGrey;
+	int ia_pixArray[7][17];
 };
 
 void loadImage(struct image *img);
@@ -20,7 +20,7 @@ void loadImage(struct image *img);
 int main()
 {
 	int i_choice;
-	struct image image1;
+	struct image st_image1;
 	do
 	{
 		system("cls");
@@ -30,7 +30,7 @@ int main()
 		{
 		case 1:
 		{
-			loadImage(&image1);
+			loadImage(&st_image1);
 		}
 		default:
 			break;
@@ -45,16 +45,16 @@ int main()
 void loadImage(struct image *img)
 {
 	system("cls");
-	char flname[20];
-	int line = 0,i,j,temp;
+	char ca_flname[20];
+	int i_line = 0,i,j,temp;
 	printf("Insert a name of a desired file: ");
-	scanf("%s", &flname);
+	scanf("%s", &ca_flname);
 	FILE *file;
-	file = fopen(flname, "r");
+	file = fopen(ca_flname, "r");
 	if (file == NULL)
 	{
 		printf("Cannot open desired file!\n");
-		return EXIT_FAILURE;
+		return;
 	}
 	while (!feof(file))
 	{
@@ -63,23 +63,23 @@ void loadImage(struct image *img)
 			while (getc(file) != '\n');
 		}
 		fseek(file, -1, SEEK_CUR);
-		if (line==0)
+		if (i_line==0)
 		{
-			fscanf(file, "%s", &img->standard);
-			printf("%s\n", img->standard);
-			line++;
+			fscanf(file, "%s", &img->ca_standard);
+			printf("%s\n", img->ca_standard);
+			i_line++;
 		}
-		else if (line == 1)
+		else if (i_line == 1)
 		{
-			fscanf(file, "%d %d", &img->width,&img->height);
-			printf("%d %d\n", img->width,img->height);
-			line++;
+			fscanf(file, "%d %d", &img->i_width,&img->i_height);
+			printf("%d %d\n", img->i_width,img->i_height);
+			i_line++;
 		}
-		else if (line == 2)
+		else if (i_line == 2)
 		{
-			fscanf(file, "%d", &img->maxGrey);
-			printf("%d\n", img->maxGrey);
-			line++;
+			fscanf(file, "%d", &img->i_maxGrey);
+			printf("%d\n", img->i_maxGrey);
+			i_line++;
 		}
 		else
 		{
@@ -88,8 +88,8 @@ void loadImage(struct image *img)
 				for (j = 0; j < 17; j++)
 				{
 					fscanf(file, "%d", &temp);
-					(img)->pixArray[i][j] = temp;
-					printf("%d ", img->pixArray[i][j]);
+					(img)->ia_pixArray[i][j] = temp;
+					printf("%d ", img->ia_pixArray[i][j]);
 				}
 				printf("\n");
 			}
